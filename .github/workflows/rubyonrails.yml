@@ -15,8 +15,6 @@ jobs:
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
-      - name: Set up tests
-        run: rails db:migrate RAILS_ENV=test
       - name: Run tests
         run: rails test
 
