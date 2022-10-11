@@ -1,13 +1,25 @@
 name: CI
   
-on: [pull_request, push]
+on: [pull_request]
 jobs:
   rubocop:
     runs-on: ubuntu-latest
+    services: 
+      postgres: 
+        image: postgres:11-alpine
+        ports: 
+          - "5432:5432"
+        env: 
+          POSTGRES_DATABASE: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env: 
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     
     steps:
       
-      - uses: action/checkout@v3
+      - uses: actions/checkout@v3
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -15,3 +27,14 @@ jobs:
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
+      - name: create database
+        run: bundle exec rails db:create
+      - name: migrate database
+        run: bundle exec rails db:migrate
+      - name: seed database
+        run: bundle exec rails db:seed
+      - name: Set up tests
+        run: bundle exec rails db:migrate RAILS_ENV=test
+      - name: Run tests
+        run: bundle exec rails test
+
