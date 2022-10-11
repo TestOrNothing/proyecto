@@ -27,6 +27,12 @@ jobs:
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
+      - name: create database
+        run: bundle exec rails db:create
+      - name: migrate database
+        run: bundle exec rails db:migrate
+      - name: seed database
+        run: bundle exec rails db:seed
       - name: Set up tests
         run: bundle exec rails db:migrate RAILS_ENV=test
       - name: Run tests
