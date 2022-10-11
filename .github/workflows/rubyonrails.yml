@@ -16,7 +16,7 @@ jobs:
       - name: Run rubocop
         run: bundle exec rubocop
       - name: Set up tests
-        run: rails db:migrate RAILS_ENV=test
+        run: bundle exec rails db:migrate RAILS_ENV=test
       - name: Run tests
-        run: rails test
+        run: bundle exec rails test
 
