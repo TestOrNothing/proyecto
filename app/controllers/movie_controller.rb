@@ -22,6 +22,7 @@ class MovieController < ApplicationController
   def create_movie_time
     movie_time_params = params.require(:movie_time).permit(:movie_id, :time, :date_start,
                                                            :date_end, :room)
+                                                           puts movie_time_params
     movie_time = MovieTime.create(movie_time_params)
     if movie_time.persisted?
       redirect_to '/movie/new', notice: 'Pelicula asignada con exito'
