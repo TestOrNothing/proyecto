@@ -28,17 +28,18 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
   end
   test 'Posting a new reserva with blank name' do
     post new_reserva_url(5, '2000-11-12', 'TANDA'),
-      params: { reservation_seats: 'C-4', name: '' }
+         params: { reservation_seats: 'C-4', name: '' }
     assert_equal 'No se ingreso nombre para la reserva', flash[:notice]
   end
   test 'Posting a new reserva with ocupied seats' do
     post new_reserva_url(5, '2000-11-12', 'TANDA'),
-      params: { reservation_seats: 'Invalid', name: 'Santiago' }
-    assert_equal 'No se pudo completar la reserva ya que uno de los asientos estaba ocupado', flash[:notice]
+         params: { reservation_seats: 'Invalid', name: 'Santiago' }
+    assert_equal 'No se pudo completar la reserva ya que uno de los asientos estaba ocupado',
+                 flash[:notice]
   end
   test 'Posting a new reserva without selecting seats' do
     post new_reserva_url(5, '2000-11-12', 'TANDA'),
-      params: { reservation_seats: '', name: 'Santiago' }
+         params: { reservation_seats: '', name: 'Santiago' }
     assert_equal 'Selecciona uno de los asientos para crear una reserva', flash[:notice]
   end
 end

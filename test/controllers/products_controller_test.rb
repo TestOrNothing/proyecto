@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
@@ -41,8 +43,12 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test 'should create product' do
     assert_difference('Product.count') do
       post products_url,
-           params: { product: { category: @product_to_create.category, name: @product_to_create.name, price: @product_to_create.price,
-                                volume: @product_to_create.volume, weight: @product_to_create.weight } }
+           params: { product: {
+             category: @product_to_create.category,
+             name: @product_to_create.name,
+             price: @product_to_create.price,
+             volume: @product_to_create.volume, weight: @product_to_create.weight
+           } }
     end
 
     assert_redirected_to product_url(Product.last)
@@ -51,8 +57,8 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test 'should fail to create product' do
     assert_no_difference('Product.count') do
       post products_url,
-            params: { product: { category: 'Bebestible', name: 'Failed product', price: 0,
-                                  volume: 1, weight: 1 } }
+           params: { product: { category: 'Bebestible', name: 'Failed product', price: 0,
+                                volume: 1, weight: 1 } }
       assert_response :unprocessable_entity
     end
   end
@@ -74,8 +80,13 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update product' do
     patch product_url(@product1),
-          params: { product: { category: @product1.category, name: @product1.name, price: @product1.price + 1,
-                               volume: @product1.volume, weight: @product1.weight } }
+          params: { product: {
+            category: @product1.category,
+            name: @product1.name,
+            price: @product1.price + 1,
+            volume: @product1.volume,
+            weight: @product1.weight
+          } }
     assert_redirected_to product_url(@product1)
   end
 
