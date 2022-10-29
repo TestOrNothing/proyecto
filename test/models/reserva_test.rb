@@ -21,4 +21,11 @@ class ReservaTest < ActiveSupport::TestCase
                              name: 'Pedro')
     assert_equal(true, reserva.valid?)
   end
+
+  test 'validate_movie_time_exist error' do
+    reserva = Reserva.new(sala: 4, fecha: Date.new(2022, 10, 13), asiento: 10, horario: 'TANDA',
+                             name: 'Pedro')
+    reserva.validate_movie_time_exist
+    assert_equal('No existe una pelicula en esta sala, horario y fecha', reserva.errors.messages[:none_existing][0])
+  end
 end
