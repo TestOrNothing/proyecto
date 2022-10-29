@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Products</h1>
+
+<div>
+  <%= link_to 'Filtrar por Comestibles', products_path(category: 'Comestibles')%>
+</div>
+
+<div>
+  <%= link_to 'Filtrar por Bebestible', products_path(category: 'Bebestible')%>
+</div>
+
+<div>
+  <%= link_to 'Filtrar por Souvenir', products_path(category: 'Souvenir')%>
+</div>
+
+<div>
+  <%= link_to 'Ver todos', products_path()%>
+</div>
+<br>
+
+<div id="products">
+  <% @products.each do |product| %>
+    <%= render product %>
+    <p>
+      <%= link_to "Show this product", product %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New product", new_product_path %>

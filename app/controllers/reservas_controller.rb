@@ -30,8 +30,7 @@ def reservas_validation(instancias_reservas)
                 notice: 'No se ingreso nombre para la reserva'
   else
     redirect_to new_reserva_path(params[:sala], params[:fecha], params[:horario]),
-                notice: 'No se pudo completar la reserva ya que uno de los asientos estaba
-                               ocupado '
+                notice: 'No se pudo completar la reserva ya que uno de los asientos estaba ocupado'
   end
 end
 
