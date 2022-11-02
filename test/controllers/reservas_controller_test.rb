@@ -4,10 +4,10 @@ require 'test_helper'
 
 class ReservasControllerTest < ActionDispatch::IntegrationTest
   def setup
-    movie = Movie.create(title: 'Matrix')
-    MovieTime.create(room: 5, date_start: Date.new(2000, 11, 10),
+    @movie = Movie.create(title: 'Matrix')
+    @time = MovieTime.create(room: 5, date_start: Date.new(2000, 11, 10),
                      date_end: Date.new(2000, 11, 12), time: 'TANDA',
-                     movie_id: movie.id)
+                     movie_id: @movie.id)
   end
 
   def teardown
@@ -41,5 +41,10 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     post new_reserva_url(5, '2000-11-12', 'TANDA'),
          params: { reservation_seats: '', name: 'Santiago' }
     assert_equal 'Selecciona uno de los asientos para crear una reserva', flash[:notice]
+  end
+
+  test 'get reservas of existing room' do 
+    get "/reservas/new/5/#{@time.date_start}/TANDA"
+    assert_response :success
   end
 end

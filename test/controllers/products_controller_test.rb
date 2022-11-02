@@ -40,7 +40,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should create product' do
+  test 'difference in should create product' do
     assert_difference('Product.count') do
       post products_url,
            params: { product: {
@@ -50,17 +50,33 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
              volume: @product_to_create.volume, weight: @product_to_create.weight
            } }
     end
+  end
+
+  test 'redirect in should create product' do
+    post products_url,
+          params: { product: {
+            category: @product_to_create.category,
+            name: @product_to_create.name,
+            price: @product_to_create.price,
+            volume: @product_to_create.volume, weight: @product_to_create.weight
+          } }
 
     assert_redirected_to product_url(Product.last)
   end
 
-  test 'should fail to create product' do
+  test 'should fail to create product no diference' do
     assert_no_difference('Product.count') do
       post products_url,
            params: { product: { category: 'Bebestible', name: 'Failed product', price: 0,
                                 volume: 1, weight: 1 } }
-      assert_response :unprocessable_entity
     end
+  end
+
+  test 'should fail to create product redirect' do
+    post products_url,
+          params: { product: { category: 'Bebestible', name: 'Failed product', price: 0,
+                              volume: 1, weight: 1 } }
+    assert_response :unprocessable_entity
   end
 
   test 'should show product' do
@@ -97,11 +113,14 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'should destroy product' do
+  test 'should destroy product difference' do
     assert_difference('Product.count', -1) do
       delete product_url(@product1)
     end
+  end
 
+  test 'should destroy product redirect' do
+    delete product_url(@product1)
     assert_redirected_to products_url
   end
 end
