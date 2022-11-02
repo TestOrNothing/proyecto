@@ -4,30 +4,14 @@ require 'test_helper'
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @product1 = Product.create(
-      name: 'Coca Cola',
-      price: 10,
-      category: 'Bebestible',
-      volume: 1
-    )
-    @product2 = Product.create(
-      name: 'Papas',
-      price: 5,
-      category: 'Comestibles',
-      weight: 1
-    )
-    @product3 = Product.create(
-      name: 'Camiseta',
-      price: 20,
-      category: 'Souvenir',
-      weight: 1
-    )
-    @product_to_create = Product.new(
-      name: 'Sprite',
-      price: 12,
-      category: 'Bebestible',
-      volume: 2
-    )
+    @product1 = Product.create(name: 'Coca Cola', price: 10, category: 'Bebestible',
+                               volume: 1)
+    @product2 = Product.create(name: 'Papas', price: 5, category: 'Comestibles',
+                               weight: 1)
+    @product3 = Product.create(name: 'Camiseta', price: 20, category: 'Souvenir',
+                               weight: 1)
+    @product_to_create = Product.new(name: 'Sprite', price: 12, category: 'Bebestible',
+                                     volume: 2)
   end
 
   test 'should get index' do
@@ -54,12 +38,12 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test 'redirect in should create product' do
     post products_url,
-          params: { product: {
-            category: @product_to_create.category,
-            name: @product_to_create.name,
-            price: @product_to_create.price,
-            volume: @product_to_create.volume, weight: @product_to_create.weight
-          } }
+         params: { product: {
+           category: @product_to_create.category,
+           name: @product_to_create.name,
+           price: @product_to_create.price,
+           volume: @product_to_create.volume, weight: @product_to_create.weight
+         } }
 
     assert_redirected_to product_url(Product.last)
   end
@@ -74,7 +58,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should fail to create product redirect' do
     post products_url,
-          params: { product: { category: 'Bebestible', name: 'Failed product', price: 0,
+         params: { product: { category: 'Bebestible', name: 'Failed product', price: 0,
                               volume: 1, weight: 1 } }
     assert_response :unprocessable_entity
   end
