@@ -20,23 +20,27 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
                           asiento: 1, horario: 'TANDA', name: 'John')
     assert_equal(true, reserva.valid?)
   end
+
   test 'Posting a new reserva' do
     assert_difference 'Reserva.count' do
       post new_reserva_url(5, '2000-11-12', 'TANDA'),
            params: { reservation_seats: 'C-3', name: 'Diego' }
     end
   end
+
   test 'Posting a new reserva with blank name' do
     post new_reserva_url(5, '2000-11-12', 'TANDA'),
          params: { reservation_seats: 'C-4', name: '' }
     assert_equal 'No se ingreso nombre para la reserva', flash[:notice]
   end
+
   test 'Posting a new reserva with ocupied seats' do
     post new_reserva_url(5, '2000-11-12', 'TANDA'),
          params: { reservation_seats: 'Invalid', name: 'Santiago' }
     assert_equal 'No se pudo completar la reserva ya que uno de los asientos estaba ocupado',
                  flash[:notice]
   end
+  
   test 'Posting a new reserva without selecting seats' do
     post new_reserva_url(5, '2000-11-12', 'TANDA'),
          params: { reservation_seats: '', name: 'Santiago' }
