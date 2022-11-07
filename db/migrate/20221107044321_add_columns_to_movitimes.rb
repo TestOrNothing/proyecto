@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class AddColumnsToMovitimes < ActiveRecord::Migration[7.0]
   def change
-    add_column :movie_times, :location, :string
-    add_column :movie_times, :lenguage, :string
+    change_table :movie_times, bulk: true do |t|
+      t.string :location
+      t.string :lenguage
+    end
   end
 end
