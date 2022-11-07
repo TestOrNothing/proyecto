@@ -42,9 +42,10 @@ class MovieController < ApplicationController
   def list_by_date
     @date = params[:date]
     @age = params[:age]
+    @lenguage = params[:idioma]
     @location = params[:place]
     if @age == "Menor de edad"
-      @filter = Movie.where(restricted: true).includes(:movie_times).where(['movie_times.date_start <= ? and
+      @filter = Movie.where(restricted: false).includes(:movie_times).where(['movie_times.date_start <= ? and
                                                                                   ? <= movie_times.date_end and movie_times.location = ?',
                                                                                 @date, @date, @location]).references(:movie_times)
     else 
@@ -52,6 +53,6 @@ class MovieController < ApplicationController
                                                     ? <= movie_times.date_end and movie_times.location = ?',
                                                   @date, @date, @location]).references(:movie_times)
     end 
-    @filter
+    return @filter, @lenguage
   end
 end

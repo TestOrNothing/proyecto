@@ -2,6 +2,11 @@
 <div class="main_movie_times_container">
     <% @filter.each do |movie|%>
           <div class="movie_time_container">
+              <%if movie.restricted%>
+                  <p>No apta para todo publico</p>
+              <%else%>
+                  <p>Apta para todo publico</p>
+            <%end%>
               <%if movie.image.attached?%>
                   <img class="movie_image" src="<%=Rails.env.production? ? movie.image.url : url_for(movie.image)%>"/>
               <%else%>
@@ -16,7 +21,14 @@
 
                 <b><%= time%>:</b>
                 <% movie_filter[time].each do |sala|%>
-                <%= link_to "Sala #{sala['room']}", new_reserva_path(sala['room'], @date, time), class: 'sala_button button is-light is-outlined is-small button is-rounded'%>
+                <%if sala['lenguage'] == @lenguage%>
+                  <%= link_to "Sala #{sala['room']}, #{sala['lenguage']}", new_reserva_path(sala['room'], @date, time), class: 'sala_button button is-light is-outlined is-small button is-rounded'%>
+                <%end%>
+                <%end%>
+                <% movie_filter[time].each do |sala|%>
+                <%if sala['lenguage'] != @lenguage%>
+                  <%= link_to "Sala #{sala['room']}, #{sala['lenguage']}", new_reserva_path(sala['room'], @date, time), class: 'sala_button button is-light is-outlined is-small button is-rounded'%>
+                <%end%>
                 <%end%>
                 </div>
               <%end%>
