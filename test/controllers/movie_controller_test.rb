@@ -101,7 +101,7 @@ class MovieControllerTest < ActionDispatch::IntegrationTest
     assert_equal true, (response.parsed_body.include? 'No apta para todo publico')
     assert_response :success
   end
-  
+
   test 'list_by_dates Menor de edad' do
     get '/movies/list?date=2000-11-12&age=Menor+de+edad&idioma=Ingles&place=Santiago&commit=Buscar'
     assert_response :success
