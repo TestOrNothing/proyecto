@@ -13,6 +13,9 @@ class MovieControllerTest < ActionDispatch::IntegrationTest
     @time2 = MovieTime.create(room: 6, date_start: Date.new(2000, 10, 10),
                               date_end: Date.new(2000, 11, 12), time: 'TANDA',
                               movie_id: @movie3.id, location: 'Santiago', lenguage: 'Ingles')
+    @time3 = MovieTime.create(room: 6, date_start: Date.new(2020, 10, 10),
+                              date_end: Date.new(2021, 11, 12), time: 'TANDA',
+                              movie_id: @movie3.id, location: 'Santiago', lenguage: 'Ingles')
   end
 
   def teardown
@@ -94,12 +97,14 @@ class MovieControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'list_by_dates Mayor de edad' do
-    get '/movies/list?date=2000-11-12&age=Mayor+de+edad&idioma=Ingles&place=Santiago&commit=Buscar'
+    get '/movies/list?date=2020-11-12&age=Mayor+de+edad&idioma=Ingles&place=Santiago&commit=Buscar'
+    assert_equal true, (response.parsed_body.include? 'No apta para todo publico')
     assert_response :success
   end
-
+  
   test 'list_by_dates Menor de edad' do
     get '/movies/list?date=2000-11-12&age=Menor+de+edad&idioma=Ingles&place=Santiago&commit=Buscar'
     assert_response :success
+    assert_equal false, (response.parsed_body.include? 'No apta para todo publico')
   end
 end
