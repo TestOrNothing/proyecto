@@ -37,6 +37,14 @@
           </div>
           <%= form.file_field :image , class:"input", accept: 'image/*'%>
         </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-medium left">
+            <%= form.label :Restriccion , 'Restriccion:'%>
+          </div>
+          <%= form.check_box :restricted %>
+        </div>
+
         <%= form.submit "Crear", class: "button is-rounded is-link"%>
       <% end %>
     </div>
@@ -80,6 +88,24 @@
           </div>
           <div class="select is-fullwidth">
             <%= form.select :room, (1..8)%>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-medium">
+            <%= form.label :lenguage, "lenguaje: " , class:'label'%>
+          </div>
+          <div class="select is-fullwidth">
+            <%= form.select :lenguage, ["Español", "Ingles"]%>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-medium">
+            <%= form.label :location, "Lugar: " , class:'label'%>
+          </div>
+          <div class="select is-fullwidth">
+            <%= form.select :location, ["sucursal Santiago", "sucursal Regional"] %>
           </div>
         </div>
         <%= form.submit "Asignar", class: "button is-rounded is-link"%>

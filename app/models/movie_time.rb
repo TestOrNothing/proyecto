@@ -13,6 +13,8 @@ class MovieTime < ApplicationRecord
   validates :date_end, presence: { message: 'Falta la fecha final' }
   validates :movie_id, presence: { message: 'Falta elegir una pelicula' }
   validate :validate_date
+  validates :location, presence: { message: 'Falta el lugar' }
+  validates :lenguage, presence: { message: 'Falta el Idoma' }
 
   def validate_date
     return if date_start.nil? || date_end.nil?
