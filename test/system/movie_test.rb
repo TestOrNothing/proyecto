@@ -49,6 +49,8 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @restricted_movie_santiago.title
     assert_no_text @non_restricted_movie_santiago.title
     assert_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 1, Ingles'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 2, Español'
   end
 
   test 'Menor de Edad, Regional, Ingles' do
@@ -58,6 +60,8 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @non_restricted_movie_santiago.title
     assert_text 'Apta para todo publico'
     assert_no_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 3, Ingles'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 4, Español'
   end
 
   test 'Mayor de Edad, Santiago, Ingles' do
@@ -67,6 +71,8 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @restricted_movie_regional.title
     assert_no_text @non_restricted_movie_regional.title
     assert_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 5, Ingles'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 6, Español'
   end
 
   test 'Mayor de Edad, Regional, Español' do
@@ -76,6 +82,8 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @restricted_movie_santiago.title
     assert_no_text @non_restricted_movie_santiago.title
     assert_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 2, Español'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 1, Ingles'
   end
 
   test 'Menor de Edad, Santiago, Ingles' do
@@ -86,6 +94,8 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @non_restricted_movie_regional.title
     assert_text 'Apta para todo publico'
     assert_no_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 7, Ingles'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 8, Español'
   end
 
   test 'Mayor de Edad, Santiago, Español' do
@@ -95,6 +105,8 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @restricted_movie_regional.title
     assert_no_text @non_restricted_movie_regional.title
     assert_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 6, Español'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 5, Ingles'
   end
 
   test 'Menor de Edad, Regional, Español' do
@@ -105,6 +117,8 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @non_restricted_movie_santiago.title
     assert_text 'Apta para todo publico'
     assert_no_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 4, Español'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 3, Ingles'
   end
 
   test 'Menor de Edad, Santiago, Español' do
@@ -115,5 +129,7 @@ class MoviesTest < ApplicationSystemTestCase
     assert_no_text @non_restricted_movie_regional.title
     assert_text 'Apta para todo publico'
     assert_no_text 'Solo apta para mayores de edad'
+    assert_equal page.find_all('.sala_button')[0].text, 'Sala 8, Español'
+    assert_equal page.find_all('.sala_button')[1].text, 'Sala 7, Ingles'
   end
 end

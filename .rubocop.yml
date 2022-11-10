@@ -13,7 +13,7 @@ Metrics/AbcSize:
     - "db/**/*"
 
 Metrics/ClassLength:
-  Max: 130
+  Max: 140
   Exclude:
     - "db/**/*"
 
