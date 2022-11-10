@@ -1,12 +1,12 @@
-# Proyecto DCCinema Grupo X
-#### Entrega: X
-#### Url Heroku:
+# Proyecto DCCinema Grupo 1
+#### Entrega: 3
+#### Url Heroku:https://peli-app.herokuapp.com/
 
 
 ### Logros
- Dejar explicito lo que no lograron hacer de la entrega o si lograron hacer todo lo pedido
+ - Logramos todo lo pedido
 
 ### Consideraciones generales para la correcion
-Cualquier detalle que consideren que puede ser útil para el corrector. Ej:
-bugs detectados, pasos adicionales de setup, cosas que no sean tan claras relacionadas con el uso de su aplicacion, entre otros
+ - La tabla de decision esta en una foto llamada Tabla de Verdad.png en el directorio raiz
+ - Para correr los test de sitema que prueban la tabla hay qu usar el comando rails test:system
 
