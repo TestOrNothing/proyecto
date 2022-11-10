@@ -24,9 +24,7 @@ class MovieTime < ApplicationRecord
                  'El día de inicio tiene que ser antes o igual al día de termino')
     end
 
-    # rubocop:disable Layout/LineLength
     query_text = '((? <= date_end and ? >= date_start) or (? <= date_end and ? >= date_start)) and time = ? and room = ? and location = ?'
-    # rubocop:enable Layout/LineLength
     query = MovieTime.where([query_text, date_start, date_start, date_end, date_end, time, room,
                              location])
 
