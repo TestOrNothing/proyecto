@@ -70,15 +70,6 @@ class MovieControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to '/movie/new'
   end
 
-  test 'create_movie_time failure occupied notice' do
-    post '/movie_time/new',
-         params: { movie_time: { room: 5, date_start: Date.new(2000, 10, 10),
-                                 date_end: Date.new(2000, 11, 12), time: 'TANDA',
-                                 movie_id: @movie2.id } }
-    message = "La sala esta ocupada entre #{Date.new(2000, 10, 10)} y el #{Date.new(2000, 11, 12)}"
-    assert_equal message, flash[:notice][:room][0]
-  end
-
   test 'create_movie_time failure date_start notice' do
     post '/movie_time/new',
          params: { movie_time: { room: 5, date_start: Date.new(2001, 10, 10),
@@ -98,13 +89,13 @@ class MovieControllerTest < ActionDispatch::IntegrationTest
 
   test 'list_by_dates Mayor de edad' do
     get '/movies/list?date=2020-11-12&age=Mayor+de+edad&idioma=Ingles&place=Santiago&commit=Buscar'
-    assert_equal true, (response.parsed_body.include? 'No apta para todo publico')
+    assert_equal true, (response.parsed_body.include? 'Solo apta para mayores de edad')
     assert_response :success
   end
 
   test 'list_by_dates Menor de edad' do
     get '/movies/list?date=2000-11-12&age=Menor+de+edad&idioma=Ingles&place=Santiago&commit=Buscar'
     assert_response :success
-    assert_equal false, (response.parsed_body.include? 'No apta para todo publico')
+    assert_equal false, (response.parsed_body.include? 'Solo apta para mayores de edad')
   end
 end
