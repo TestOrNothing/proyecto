@@ -40,17 +40,17 @@ class MovieController < ApplicationController
     @age = params[:age]
     @lenguage = params[:idioma]
     @location = params[:place]
-    if @age == 'Menor de edad'
-      @filter = Movie.where(restricted: false).includes(:movie_times).where(
-        ['movie_times.date_start <= ? and ? <= movie_times.date_end and movie_times.location = ?',
-         @date, @date, @location]
-      ).references(:movie_times)
-    else
-      @filter = Movie.includes(:movie_times).where(
-        ['movie_times.date_start <= ? and ? <= movie_times.date_end and movie_times.location = ?',
-         @date, @date, @location]
-      ).references(:movie_times)
-    end
+    @filter = if @age == 'Menor de edad'
+                Movie.where(restricted: false).includes(:movie_times).where(
+                  ['movie_times.date_start <= ? and ? <= movie_times.date_end and movie_times.location = ?',
+                   @date, @date, @location]
+                ).references(:movie_times)
+              else
+                Movie.includes(:movie_times).where(
+                  ['movie_times.date_start <= ? and ? <= movie_times.date_end and movie_times.location = ?',
+                   @date, @date, @location]
+                ).references(:movie_times)
+              end
     [@filter, @lenguage]
   end
 end

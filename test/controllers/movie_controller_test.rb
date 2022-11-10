@@ -70,15 +70,6 @@ class MovieControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to '/movie/new'
   end
 
-  test 'create_movie_time failure occupied notice' do
-    post '/movie_time/new',
-         params: { movie_time: { room: 5, date_start: Date.new(2000, 10, 10),
-                                 date_end: Date.new(2000, 11, 12), time: 'TANDA',
-                                 movie_id: @movie2.id } }
-    message = "La sala esta ocupada entre #{Date.new(2000, 10, 10)} y el #{Date.new(2000, 11, 12)}"
-    assert_equal message, flash[:notice][:room][0]
-  end
-
   test 'create_movie_time failure date_start notice' do
     post '/movie_time/new',
          params: { movie_time: { room: 5, date_start: Date.new(2001, 10, 10),
